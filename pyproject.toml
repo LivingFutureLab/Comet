@@ -1,0 +1,62 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "talos"
+dynamic = ["version"]
+authors = [{ name = "Shilei Liu", email = "liushilei.lsl@taobao.com" }]
+description = "Torch Advanced Large-scale Optimization Suite."
+readme = { file = "README.md", content-type = "text/markdown" }
+requires-python = ">=3.10"
+classifiers = [
+    "Programming Language :: Python :: 3.10",
+    "Operating System :: OS Independent",
+]
+dependencies = ["torch==2.8.0", "numpy", "transformers==4.53.2", "fsspec", "pyarrow", "datasets", "oss2", "packaging", "psutil", "quack", "safetensors"]
+
+[project.optional-dependencies]
+serving = ["ray", "fastapi", "pydantic"]
+dev = ["ruff", "pytest", "expecttest", "talos[serving]"]
+
+[tool.setuptools.dynamic]
+version = { attr = "talos.__version__" }
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["talos*"]
+
+[tool.ruff]
+line-length = 88
+indent-width = 4
+target-version = "py310"
+lint.ignore = ["D", "E501"]
+lint.select = ["E", "F", "I"]
+exclude = [
+    ".git",
+    ".tox",
+    "__pycache__",
+    "build",
+    "dist",
+    "migrations",
+    "node_modules",
+    "venv",
+    "demos",
+    "myscripts",
+    "debug",
+    "third_party",
+]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
+docstring-code-format = false
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["E402", "F401", "F403", "F811"]
+
+[tool.ruff.lint.isort]
+lines-after-imports = 2
+known-first-party = ["talos"]

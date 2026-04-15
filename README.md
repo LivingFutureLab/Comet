@@ -9,7 +9,7 @@ CoMeT is an efficient long-context LLM architecture that uses collaborative glob
 
 - Python >= 3.10
 - PyTorch 2.8.0
-- NVIDIA GPU with CUDA support
+- NVIDIA H100 GPU or above
 - [NVIDIA apex](https://github.com/NVIDIA/apex)
 
 Install dependencies:
@@ -47,10 +47,24 @@ bash scripts/train.sh
 bash scripts/infer.sh
 ```
 
+If you don't have a trained model, you can use our pre-trained checkpoints below.
+
+
 ## Available Models
-The comet model trained on the scrolls dataset is available for testing via the link below:
+
+The CoMeT model trained on the SCROLLS dataset is available for download and testing. We host it on Kaggle due to upload speed limitations from mainland China to HuggingFace:
 
 [Comet-Qwen3-4b-on-Scrolls](https://www.kaggle.com/models/liulangmingliu/comet-qwen3-4b-on-scrolls)
+
+
+## Custom Data
+
+To train on your own data, prepare the dataset in the following format:
+
+- **File format**: JSONL (one JSON object per line)
+- **Required fields**:
+  - `uniq_id` (string): a unique identifier for each sample
+  - `messages` (string): conversation data in ChatML format
 
 ## Citation
 
